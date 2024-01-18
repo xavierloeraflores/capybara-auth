@@ -1,0 +1,3 @@
+[submodule "loeraflores.db"]
+	path = loeraflores.db
+	url = git@github.com:xavierloeraflores/loeraflores.db.git
