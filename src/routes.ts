@@ -22,4 +22,8 @@ router.patch('/password/:id', (req: Request, res: Response) => {
     res.send({message: 'Password'});
 });
 
+router.patch('/email/:id', (req: Request, res: Response) => {
+    res.send({message: 'Email'});
+});
+    
 module.exports = router;
