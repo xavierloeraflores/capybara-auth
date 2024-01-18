@@ -9,4 +9,8 @@ router.get('/', (req: Request, res: Response) => {
 router.post('/login', (req: Request, res: Response) => {
     res.send({message: 'Login'});
   });
+
+router.post('/register', (req: Request, res: Response) => {
+    res.send({message: 'Register'});
+  });
 module.exports = router;
