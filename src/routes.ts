@@ -13,7 +13,13 @@ router.post('/login', (req: Request, res: Response) => {
 router.post('/register', (req: Request, res: Response) => {
     res.send({message: 'Register'});
   });
+
 router.delete('/delete/:id', (req: Request, res: Response) => {
     res.send({message: 'Delete'});
   });
+
+router.patch('/password/:id', (req: Request, res: Response) => {
+    res.send({message: 'Password'});
+});
+
 module.exports = router;
