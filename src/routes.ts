@@ -6,4 +6,7 @@ router.get('/', (req: Request, res: Response) => {
     res.send({message: 'Router'});
   });
 
+router.post('/login', (req: Request, res: Response) => {
+    res.send({message: 'Login'});
+  });
 module.exports = router;
