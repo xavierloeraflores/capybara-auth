@@ -3,7 +3,7 @@ import {Request, Response} from "express";
 const express = require('express');
 const app = express();
 const mysql = require('mysql');
-
+const router = require('./routes');
 
 const port = process.env.PORT || 3000;
 const connection = mysql.createConnection(process.env.DATABASE_URL);
@@ -12,7 +12,6 @@ connection.connect((err: any) => {
   if (err) throw err;
   console.log('Connected!');
 });
-
 
 
 app.get('/', (req: Request, res: Response) => {
@@ -24,6 +23,8 @@ app.get('/', (req: Request, res: Response) => {
     res.send(results[0]);
   });
 });
+
+app.use('/auth', router);
 
 app.listen(port, () => {    
   console.log(`Listening on port ${port}`);
