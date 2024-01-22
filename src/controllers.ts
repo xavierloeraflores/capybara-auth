@@ -10,8 +10,42 @@ const query = (sql: string, args: any) => {
     });
 };
 
-const LoginController = (req: Request, res: Response) => {
-    res.send({ message: "Login" });
+const LoginController = async (
+    req: Request,
+    res: Response,
+    next: NextFunction,
+) => {
+    try {
+        const { email, password } = req.body;
+        if (!email || !password) {
+            res.status(400);
+            res.send({ message: "Missing required fields" });
+        }
+        const results = (await query(
+            "SELECT username, email, id, password from auth_users WHERE email = ?",
+            email,
+        )) as {
+            username: string;
+            email: string;
+            id: number;
+            password?: string;
+        }[];
+        if (results.length === 0) {
+            res.status(400);
+            res.send({ message: "User not found" });
+            return;
+        }
+        const user = results[0];
+        if (user.password !== password) {
+            res.status(400);
+            res.send({ message: "Incorrect email/password" });
+            return;
+        }
+        delete user.password;
+        res.send({ user, message: "Logged in" });
+    } catch (err) {
+        next(err);
+    }
 };
 
 const RegisterController = async (
