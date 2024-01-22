@@ -9,10 +9,6 @@ const {
 
 const router = Router();
 
-router.get("/", (req: Request, res: Response) => {
-    res.send({ message: "Router" });
-});
-
 router.post("/login", LoginController);
 
 router.post("/register", RegisterController);
