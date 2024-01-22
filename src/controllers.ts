@@ -1,6 +1,17 @@
 import { Request, Response } from "express";
 import { connection } from "./db";
 
+const query = (sql: string, args: any) => {
+    return new Promise((resolve, reject) => {
+        connection.connect();
+        connection.query(sql, args, (err: any, rows: any) => {
+            if (err) reject(err);
+            resolve(rows);
+        });
+        connection.end();
+    });
+};
+
 const LoginController = (req: Request, res: Response) => {
     res.send({ message: "Login" });
 };
