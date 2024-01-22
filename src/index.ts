@@ -18,6 +18,8 @@ connection.connect((err: any) => {
     console.log("Connected!");
 });
 
+app.use(express.json());
+
 app.get("/", (req: Request, res: Response) => {
     connection.query(
         "SELECT * from test_test",
