@@ -3,12 +3,10 @@ import { connection } from "./db";
 
 const query = (sql: string, args: any) => {
     return new Promise((resolve, reject) => {
-        connection.connect();
         connection.query(sql, args, (err: any, rows: any) => {
             if (err) reject(err);
             resolve(rows);
         });
-        connection.end();
     });
 };
 
@@ -16,7 +14,7 @@ const LoginController = (req: Request, res: Response) => {
     res.send({ message: "Login" });
 };
 
-const RegisterController = (req: Request, res: Response) => {
+const RegisterController = async (req: Request, res: Response) => {
     const { username, password, email } = req.body;
     if (!username || !password || !email) {
         res.status(400);
@@ -27,17 +25,12 @@ const RegisterController = (req: Request, res: Response) => {
         password,
         email,
     };
-    connection.query("INSERT INTO auth_users SET ?", user, (err: any) => {
-        if (err) throw err;
-    });
-    connection.query(
+    await query("INSERT INTO auth_users SET ?", user);
+    const results = (await query(
         "SELECT username, email, id from auth_users WHERE username = ?",
         username,
-        (err: any, results: any) => {
-            if (err) throw err;
-            res.send(results[0]);
-        },
-    );
+    )) as { username: string; email: string; id: number }[];
+    res.send(results[0]);
 };
 
 const DeleteController = (req: Request, res: Response) => {
