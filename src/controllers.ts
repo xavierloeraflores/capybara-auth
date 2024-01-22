@@ -1,23 +1,23 @@
 import { Request, Response } from "express";
 
-const LoginController= (req: Request, res: Response) => {
-    res.send({message: 'Login'});
+const LoginController = (req: Request, res: Response) => {
+    res.send({ message: "Login" });
 };
 
 const RegisterController = (req: Request, res: Response) => {
-    res.send({message: 'Register'});
+    res.send({ message: "Register" });
 };
 
 const DeleteController = (req: Request, res: Response) => {
-    res.send({message: 'Delete'});
+    res.send({ message: "Delete" });
 };
 
 const PasswordController = (req: Request, res: Response) => {
-    res.send({message: 'Password'});
+    res.send({ message: "Password" });
 };
 
 const EmailController = (req: Request, res: Response) => {
-    res.send({message: 'Email'});
+    res.send({ message: "Email" });
 };
 
 module.exports = {
@@ -25,5 +25,5 @@ module.exports = {
     RegisterController,
     DeleteController,
     PasswordController,
-    EmailController
+    EmailController,
 };
