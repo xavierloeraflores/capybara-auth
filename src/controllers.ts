@@ -1,11 +1,32 @@
 import { Request, Response } from "express";
+import { connection } from "./db";
 
 const LoginController = (req: Request, res: Response) => {
     res.send({ message: "Login" });
 };
 
 const RegisterController = (req: Request, res: Response) => {
-    res.send({ message: "Register" });
+    const { username, password, email } = req.body;
+    if (!username || !password || !email) {
+        res.status(400);
+        res.send({ message: "Missing required fields" });
+    }
+    const user = {
+        username,
+        password,
+        email,
+    };
+    connection.query("INSERT INTO auth_users SET ?", user, (err: any) => {
+        if (err) throw err;
+    });
+    connection.query(
+        "SELECT username, email, id from auth_users WHERE username = ?",
+        username,
+        (err: any, results: any) => {
+            if (err) throw err;
+            res.send(results[0]);
+        },
+    );
 };
 
 const DeleteController = (req: Request, res: Response) => {
