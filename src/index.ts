@@ -8,11 +8,10 @@ import {
 } from "express";
 const express = require("express");
 const app = express();
-const mysql = require("mysql");
 const router = require("./routes");
 
 const port = process.env.PORT || 3000;
-const connection = mysql.createConnection(process.env.DATABASE_URL);
+const { connection } = require("./db");
 
 connection.connect((err: any) => {
     if (err) throw err;
