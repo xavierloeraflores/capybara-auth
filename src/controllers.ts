@@ -58,6 +58,7 @@ const RegisterController = async (
         if (!username || !password || !email) {
             res.status(400);
             res.send({ message: "Missing required fields" });
+            return;
         }
         const user = {
             username,
